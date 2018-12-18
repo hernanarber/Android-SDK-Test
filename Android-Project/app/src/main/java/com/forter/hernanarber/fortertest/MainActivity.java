@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.forter.hernanarber.fortersdk.ForterSDK;
+
 public class MainActivity extends AppCompatActivity {
+
+    ForterSDK forter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        // Setting up the SDK:
+        forter = new ForterSDK("myApiKey1234", "myDeviceUID12345");
+//        forter.init("myApiKey1234", "myDeviceUID12345");
+
     }
 
     @Override
