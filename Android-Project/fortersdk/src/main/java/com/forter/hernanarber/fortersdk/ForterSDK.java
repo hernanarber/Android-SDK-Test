@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.arch.lifecycle.LifecycleOwner;
+import android.net.ConnectivityManager;
+import android.content.Context;
+import android.net.NetworkInfo;
 
 public class ForterSDK {
 
@@ -44,6 +47,15 @@ public class ForterSDK {
     }
 
     // Helper Methods:
+
+    private boolean isNetworkAvailable() {
+        //Pending: Need to Handle App's Context:
+
+//        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+//        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        return true;
+    }
 
     private void processQueue() {
         while (!dataQ.isEmpty()) {

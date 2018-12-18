@@ -11,12 +11,14 @@ import android.view.MenuItem;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.content.Context;
 import com.forter.hernanarber.fortersdk.ForterSDK;
 
 public class MainActivity extends AppCompatActivity {
 
     ForterSDK forter;
+    // Pending: Send Context to SDK in Order to Track Network Status:
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
