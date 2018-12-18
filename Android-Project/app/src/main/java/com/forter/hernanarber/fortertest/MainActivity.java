@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Setting up the SDK:
         forter = new ForterSDK("myApiKey1234", "myDeviceUID12345");
+
         // Adding an Initial Event:
         JSONObject initObj = new JSONObject();
         try {
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         forter.track("init", initObj);
-
 
     }
 

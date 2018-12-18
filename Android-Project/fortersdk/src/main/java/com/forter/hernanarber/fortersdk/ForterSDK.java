@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import android.arch.lifecycle.LifecycleOwner;
 
 public class ForterSDK {
 
@@ -18,6 +19,8 @@ public class ForterSDK {
     private long flushTime = 10000; // 10 Seconds
     private Timer fTimer;
 
+    // for LifeCycle Tracking:
+    LifecycleOwner appOwner;
 
     // the initializer:
     public ForterSDK (String apiKey, String deviceUID) {
@@ -25,6 +28,8 @@ public class ForterSDK {
         dUID = deviceUID;
         // Initializing the timer:
         setupTimer();
+        // Tracking App's LifeCycle:
+       // appOwner.getLifecycle().addObserver(new ForterLifecycleListener());
         Log.d("forter", "Forter has been Initialized..");
     }
 
@@ -41,8 +46,17 @@ public class ForterSDK {
     // Helper Methods:
 
     private void processQueue() {
-        
+        while (!dataQ.isEmpty()) {
+            DataObject obj = dataQ.remove();
+            sendEvent(obj);
+        }
         Log.d("forter", "Event Queue Processed: Current Queue has " + dataQ.size() + " Objects");
+    }
+
+    private void sendEvent(DataObject event) {
+        // Pending SEND Implementation:
+        // Server.Send(action: event.key, data: event.data);
+
     }
 
     private void setupTimer() {
