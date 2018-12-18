@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.forter.hernanarber.fortersdk.ForterSDK;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Setting up the SDK:
         forter = new ForterSDK("myApiKey1234", "myDeviceUID12345");
-//        forter.init("myApiKey1234", "myDeviceUID12345");
+        // Adding an Initial Event:
+        JSONObject initObj = new JSONObject();
+        try {
+            initObj.put("Action", "Init");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        forter.track("init", initObj);
+
 
     }
 
