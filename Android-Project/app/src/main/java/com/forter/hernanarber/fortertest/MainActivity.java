@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         forter = ForterSDK.get();
         forter.init(this, "myApiKey"); // Developer Note: Replace myApiKey with YOUR Api Key.
 
+        // testing with: http://mockbin.org/bin/e6ecaed3-43b5-4230-ae0c-e963a4aa58c2
+        forter.setExportServerUrl("http://mockbin.org/bin/e6ecaed3-43b5-4230-ae0c-e963a4aa58c2");
+
         // Adding an Initial Event:
         // Developer Note: Use this Method to Track your Custom Events with ForsterSDK:
         forter.track("Action", "Init");
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        // BONUS: Tracking Previous WIFI Networks:
+        forter.trackPreviousNetworks(this);
 
     }
 

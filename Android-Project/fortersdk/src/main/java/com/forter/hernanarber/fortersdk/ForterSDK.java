@@ -2,14 +2,21 @@ package com.forter.hernanarber.fortersdk;
 
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.provider.Settings;
 // for the JSON Serialization:
 import com.google.gson.Gson;
+// for the Wifi Configurations:
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
+import android.net.wifi.WifiInfo;
 
 import static com.forter.hernanarber.fortersdk.NetworkConnectionReceiver.checkConnectionStatus;
 
@@ -155,6 +162,7 @@ public class ForterSDK {
             System.out.println("ForterSDK: flushEvents failed - No pending events");
             return;
         }
+        System.out.println("ForterSDK: Events to sent: " + toSend.toString());
         sendEventsToServer(toSend);
         System.out.println("ForterSDK: flushEvents success - Events sent");
     }
@@ -216,6 +224,18 @@ public class ForterSDK {
 
     public void setMaxQueueSize(int maxQueueSize) {
         this.maxQueueSize = maxQueueSize;
+    }
+
+    // BONUS: track Configured Networks:
+    // Code Partly taken from: https://www.codota.com/code/java/methods/android.net.wifi.WifiManager/getConfiguredNetworks
+    public void trackPreviousNetworks(Context context) {
+        WifiConfiguration wifiConf = null;
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo connectionInfo = wifiManager.getConnectionInfo();
+        List<WifiConfiguration> configuredNetworks = wifiManager.getConfiguredNetworks();
+        for (WifiConfiguration conf : configuredNetworks){
+            track("Network-ID", conf.networkId);
+        }
     }
 
 }

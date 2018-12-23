@@ -35,4 +35,5 @@ public class NetworkConnectionReceiver extends BroadcastReceiver {
         // and update sdk object
         ForterSDK.get().updateNetworkState(isOnline, mWifi.isConnected(), ipAddress);
     }
+
 }
