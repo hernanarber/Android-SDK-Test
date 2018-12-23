@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         forter = ForterSDK.get();
         forter.init(this, "myApiKey"); // Developer Note: Replace myApiKey with YOUR Api Key.
 
-        // testing with: http://mockbin.org/bin/e6ecaed3-43b5-4230-ae0c-e963a4aa58c2
-        forter.setExportServerUrl("http://mockbin.org/bin/e6ecaed3-43b5-4230-ae0c-e963a4aa58c2");
+        // testing with: https://webhook.site/c07f3986-db97-47e8-8a49-526ac21a9d2a
+        forter.setExportServerUrl("https://webhook.site/c07f3986-db97-47e8-8a49-526ac21a9d2a");
 
         // Adding an Initial Event:
         // Developer Note: Use this Method to Track your Custom Events with ForsterSDK:
