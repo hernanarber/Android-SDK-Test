@@ -7,17 +7,16 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.arch.lifecycle.LifecycleOwner;
-import android.net.ConnectivityManager;
-import android.content.Context;
-import android.net.NetworkInfo;
+
 
 public class ForterSDK {
 
+    // Basic Properties:
     String aKey;
     String dUID;
 
-    Queue<DataObject> dataQ = new LinkedList<>();
-
+    // The Data Queue for sending Events in Batches:
+    private Queue<EventData> dataQ = new LinkedList<>();
     // for processing the Queue:
     private long flushTime = 10000; // 10 Seconds
     private Timer fTimer;
@@ -38,10 +37,14 @@ public class ForterSDK {
 
     public void track (String actionKey, JSONObject data) {
 
-        DataObject dataObj = new DataObject();
+        EventData dataObj = new EventData();
         dataObj.key = actionKey;
         dataObj.data = data;
         // Adding Data Object to the Queue:
+        if (dataQ.size() >= ) {
+
+            dataQ.remove();
+        }
         dataQ.add(dataObj);
         Log.d("forter", "Added Event for Tracking: Current Queue has " + dataQ.size() + " Objects");
     }
@@ -59,13 +62,13 @@ public class ForterSDK {
 
     private void processQueue() {
         while (!dataQ.isEmpty()) {
-            DataObject obj = dataQ.remove();
+            EventData obj = dataQ.remove();
             sendEvent(obj);
         }
         Log.d("forter", "Event Queue Processed: Current Queue has " + dataQ.size() + " Objects");
     }
 
-    private void sendEvent(DataObject event) {
+    private void sendEvent(EventData event) {
         // Pending SEND Implementation:
         // Server.Send(action: event.key, data: event.data);
 
