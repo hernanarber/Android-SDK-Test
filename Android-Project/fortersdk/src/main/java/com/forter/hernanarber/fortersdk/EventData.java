@@ -14,4 +14,6 @@ public class EventData {
         this.takenAt = System.currentTimeMillis();
     }
 
+
+
 }

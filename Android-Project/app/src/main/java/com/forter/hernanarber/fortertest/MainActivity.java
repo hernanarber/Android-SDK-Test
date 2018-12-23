@@ -9,16 +9,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.content.Context;
 import com.forter.hernanarber.fortersdk.ForterSDK;
 
 public class MainActivity extends AppCompatActivity {
 
-    ForterSDK forter;
-    // Pending: Send Context to SDK in Order to Track Network Status:
-    Context mContext;
+    private ForterSDK forter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,26 +22,23 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Initializing the SDK:
+        forter = ForterSDK.get();
+        forter.init(this, "myApiKey"); // Developer Note: Replace myApiKey with YOUR Api Key.
+
+        // Adding an Initial Event:
+        // Developer Note: Use this Method to Track your Custom Events with ForsterSDK:
+        forter.track("Action", "Init");
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                forter.track("Action", "Custom-Action");
+                Snackbar.make(view, "Custom Action Tracked by ForterSDK", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-
-        // Setting up the SDK:
-        forter = new ForterSDK("myApiKey1234", "myDeviceUID12345");
-
-        // Adding an Initial Event:
-        JSONObject initObj = new JSONObject();
-        try {
-            initObj.put("Action", "Init");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        forter.track("init", initObj);
 
     }
 
