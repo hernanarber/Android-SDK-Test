@@ -12,6 +12,7 @@ class JsonTransmitter {
         HttpURLConnection connection = null;
         String response = "";
         try {
+            // Setting up the Connection:
             URL urlObj = new URL(url);
             connection = (HttpURLConnection) urlObj.openConnection();
             connection.setDoOutput(true);
@@ -26,9 +27,15 @@ class JsonTransmitter {
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             wr.writeBytes(json);
             wr.flush();
+            int serverResponseCode = connection.getResponseCode();
+            if (serverResponseCode == 200) {
+                System.out.println("ForterSDK: Data Events Received by Server");
+            } else {
+                System.out.println("ForterSDK: Data Events sending Failed");
+            }
         } catch (Exception e) {
                 e.printStackTrace();
-                String err = "Transmission failed: " + e;
+                String err = "ForterSDK: Transmission failed: " + e;
                 System.out.println(err);
         } finally {
                 // cleanup
